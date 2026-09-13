@@ -1,0 +1,34 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+	work: CollectionEntry<'works'>
+}
+
+const { work } = Astro.props
+---
+
+<div class="swiper-slide">
+    <article class="project">
+        <a href={work.data.website} target="_blank">
+            <span class="arrow"></span>
+            {work.data.cover && (
+                <span class="project-image">
+                    <Image width={400} height={200} layout="constrained" src={work.data.cover} alt={work.data.coverAlt} />
+                </span>
+            )}
+            <span class="project-text">
+                <h3 class="h4">{work.data.title}</h3>
+                <p>{work.data.role} {work.data.employer && (<span class="employer">@{work.data.employer}</span>)}</p>
+                <div class="project-skills-wrap">
+                    <ul class="project-skills">
+                        {work.data.skills?.map((skill) => (
+                            <li>{skill.skill}</li>
+                        ))}
+                    </ul>
+                </div>
+            </span>
+        </a>
+    </article>
+</div>

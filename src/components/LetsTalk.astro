@@ -1,0 +1,48 @@
+<section class="section section-yellow panel center" id="lets-talk">
+	<div class="inner">
+		<h2>Hey, how you doin'?</h2>
+		<div class="lets-talk-text">
+			<p>Sorry, you can't get through. Why don't you leave your<br /> name and your number and I'll get back to you?</p>
+			<form id="form" class="form">
+				<div id="result" class="input-wrap input-wrap-full"></div>
+				<input type="hidden" name="access_key" value="3f0cc981-3d56-4a97-ab3e-4f0e456bd146" />
+				<div class="input-wrap">
+					<label class="label" for="name">Name:</label>
+					<input class="input" type="text" name="name" id="name" required />
+				</div>
+				<div class="input-wrap">
+					<label class="label" for="email">Email:</label>
+					<input class="input" type="email" name="email" id="email" required />
+				</div>
+				<div class="input-wrap input-wrap-full">
+					<label class="label" for="message">Message:</label>
+					<textarea class="input input-textarea" name="message" id="message" required></textarea>
+				</div>
+				<button class="button fade-up" type="submit">Let's Talk</button>
+			</form>
+		</div>
+	</div>
+</section>
+
+<script>
+  const form = document.getElementById("form") as HTMLFormElement;
+  const result = document.getElementById("result") as HTMLElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    result.innerHTML = "<span>Sending...</span>";
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: new FormData(form),
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      result.innerHTML = "<span>Form Submitted Successfully</span>";
+      form.reset();
+    } else {
+      result.innerHTML = data.message;
+    }
+  });
+</script>

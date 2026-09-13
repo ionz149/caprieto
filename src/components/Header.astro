@@ -1,0 +1,213 @@
+<header id="masthead" class="site-header">
+	<div class="inner">
+		<h1 class="logo"><a href="/" rel="home">Chris Prieto</a></h1>
+		<nav id="site-navigation" class="main-navigation">
+			<ul id="primary-menu" class="top-nav">
+                <li class="menu-item">
+                    <a href="#work">Work</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#experience">Experience</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#testimonials">Testimonials</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#afk">AFK</a>
+                </li>
+                <li class="menu-button menu-item">
+                    <a href="#lets-talk">Let’s Talk!</a>
+                </li>
+            </ul>
+        </nav>
+	</div>
+</header>
+
+<script>
+	const hero = document.querySelector("#hero");
+	const sections = document.querySelectorAll("main section[id]");
+	const navLinks = document.querySelectorAll(
+		'#site-navigation a[href^="#"]'
+	);
+
+	let isClickScrolling = false;
+	let scrollEndTimeout: ReturnType<typeof setTimeout>;
+
+    const logoLink = document.querySelector(".logo a");
+
+    logoLink?.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        history.replaceState(null, "", window.location.pathname);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    });
+
+	function setActiveLink(id: string | null) {
+		navLinks.forEach((link) => {
+			const isActive =
+				id !== null &&
+				link.getAttribute("href") === `#${id}`;
+
+			link.classList.toggle("active", isActive);
+
+			if (isActive) {
+				link.setAttribute("aria-current", "page");
+			} else {
+				link.removeAttribute("aria-current");
+			}
+		});
+	}
+
+	/*
+	 * Watch the page sections.
+	 *
+	 * The rootMargin creates an activation zone roughly in the
+	 * middle of the viewport.
+	 */
+	const observer = new IntersectionObserver(
+		(entries) => {
+			if (isClickScrolling) return;
+
+			const visibleSections = Array.from(entries)
+				.filter((entry) => entry.isIntersecting)
+				.map((entry) => entry.target as HTMLElement);
+
+			if (!visibleSections.length) return;
+
+			/*
+			 * Pick the section whose top is closest to the
+			 * activation point.
+			 */
+			const activationPoint = window.innerHeight * 0.35;
+
+			const activeSection = visibleSections.reduce(
+				(closest, section) => {
+					const closestDistance = Math.abs(
+						closest.getBoundingClientRect().top -
+							activationPoint
+					);
+
+					const sectionDistance = Math.abs(
+						section.getBoundingClientRect().top -
+							activationPoint
+					);
+
+					return sectionDistance < closestDistance
+						? section
+						: closest;
+				}
+			);
+
+			setActiveLink(activeSection.id);
+
+            const currentHash = `#${activeSection.id}`;
+
+            if (window.location.hash !== currentHash) {
+                history.replaceState(null, "", currentHash);
+            }
+		},
+		{
+			rootMargin: "-35% 0px -55% 0px",
+			threshold: 0,
+		}
+	);
+
+	sections.forEach((section) => observer.observe(section));
+
+	/*
+	 * Watch the hero separately.
+	 *
+	 * When we're back at the top of the page, clear the
+	 * navigation's active state.
+	 */
+	if (hero) {
+		const heroObserver = new IntersectionObserver(
+			(entries) => {
+				if (isClickScrolling) return;
+
+				const isHeroVisible = entries.some(
+					(entry) => entry.isIntersecting
+				);
+
+                if (isHeroVisible) {
+                    setActiveLink(null);
+
+                    if (window.location.hash) {
+                        history.replaceState(null, "", window.location.pathname);
+                    }
+                }
+			},
+			{
+				rootMargin: "-35% 0px -55% 0px",
+			}
+		);
+
+		heroObserver.observe(hero);
+	}
+
+	/*
+	 * Handle navigation clicks ourselves.
+	 *
+	 * This lets us:
+	 * - smoothly scroll
+	 * - update the URL without a browser jump
+	 * - temporarily prevent the observer from changing
+	 *   the active state during the animation
+	 */
+	navLinks.forEach((link) => {
+		link.addEventListener("click", (event) => {
+			const href = link.getAttribute("href");
+
+			if (!href?.startsWith("#")) return;
+
+			const target = document.querySelector(href);
+
+			if (!target) return;
+
+			event.preventDefault();
+
+			const id = href.substring(1);
+
+			isClickScrolling = true;
+			setActiveLink(id);
+
+			/*
+			 * Update the URL without triggering native
+			 * anchor navigation.
+			 */
+			history.pushState(null, "", href);
+
+			target.scrollIntoView({
+				behavior: "smooth",
+				block: "start",
+			});
+
+			/*
+			 * Let the observer take over again after the
+			 * smooth scroll has finished.
+			 *
+			 * scrollend is supported by modern browsers,
+			 * with a timeout fallback.
+			 */
+			const finishScrolling = () => {
+				isClickScrolling = false;
+			};
+
+			window.addEventListener(
+				"scrollend",
+				finishScrolling,
+				{ once: true }
+			);
+
+			clearTimeout(scrollEndTimeout);
+
+			scrollEndTimeout = setTimeout(() => {
+				isClickScrolling = false;
+			}, 3000);
+		});
+	});
+</script>

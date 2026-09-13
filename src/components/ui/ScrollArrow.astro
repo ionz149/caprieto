@@ -1,0 +1,19 @@
+---
+interface Props {
+direction: "up" | "down";
+}
+const { direction } = Astro.props;
+const target = direction === "up" ? "#hero" : "#work";
+---
+<a
+class={`scroll-button scroll-${direction}-button`}
+href={target}
+aria-label={direction === "up" ? "Scroll to top" : "Scroll to work"}
+>
+    <span class="circle">
+        <span class="arrow"></span>
+        <span class="sr-only">
+            {direction === "up" ? "Scroll Up" : "Scroll Down"}
+        </span>
+    </span>
+</a>

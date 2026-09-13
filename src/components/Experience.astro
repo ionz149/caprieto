@@ -1,0 +1,71 @@
+---
+import { getCollection } from "astro:content";
+import ExperienceItem from "./ExperienceItem.astro";
+
+const experiences = await getCollection("experiences");
+
+experiences.sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<section class="section panel" id="experience">
+	<div class="inner">
+		<div class="work-intro">
+			<h2>Experience</h2>
+			<div class="intro-text">
+				<p>
+					Front-End Developer with over 15 years experience creating
+					responsive, accessible, and visually engaging websites.
+					Highly proficient in WordPress development, accessibility,
+					usability, and cross-platform optimization. Adept at
+					collaborating with designers, marketers, and developers to
+					bring ideas to life.
+				</p>
+			</div>
+		</div>
+
+		<div class="experience-list" id="experience-list">
+			{experiences.map((experience, index) => (
+				<ExperienceItem
+					experience={experience}
+					class:list={{ "experience-hidden": index >= 4 }}
+				/>
+			))}
+		</div>
+
+		{experiences.length > 4 && (
+			<div class="text-center">
+				<button
+					type="button"
+					class="button button-gold experience-toggle"
+					id="experience-toggle"
+					aria-expanded="false"
+				>
+					Show More
+				</button>
+			</div>
+		)}
+	</div>
+</section>
+
+<script>
+	const experienceList = document.querySelector("#experience-list");
+	const experienceToggle = document.querySelector("#experience-toggle");
+
+	if (experienceList && experienceToggle) {
+		experienceToggle.addEventListener("click", () => {
+			const isExpanded =
+				experienceList.classList.toggle("is-expanded");
+
+			experienceToggle.textContent = isExpanded
+				? "Show Less"
+				: "Show More";
+
+			experienceToggle.setAttribute(
+				"aria-expanded",
+				String(isExpanded)
+			);
+		});
+	}
+</script>

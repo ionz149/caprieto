@@ -1,0 +1,643 @@
+@use "sass:math";
+
+@function px-to-rem($px, $base: 16px) {
+  @return math.div($px, $base) * 1rem;
+}
+
+@function fluid(
+  $min-px,
+  $max-px,
+  $vw-min,
+  $vw-max,
+  $base: 16px
+) {
+  // unitless slope
+  $slope: math.div(
+    ($max-px - $min-px),
+    ($vw-max - $vw-min)
+  );
+
+  // intercept in px
+  $intercept: $max-px - ($vw-max * $slope);
+
+  @return clamp(
+    #{px-to-rem($min-px, $base)},
+    calc(
+      #{px-to-rem($intercept, $base)} +
+      #{100 * $slope}vw
+    ),
+    #{px-to-rem($max-px, $base)}
+  );
+}
+
+html {
+    scroll-behavior: smooth;
+
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: fluid(16px, 30px, 768px, 1920px);
+    line-height: 1.3;
+}
+
+h1,
+.h1 {
+    font-size: fluid(32px, 110px, 768px, 1920px);
+}
+
+h2,
+.h2 {
+    font-size: fluid(28px, 66px, 768px, 1920px);
+    margin-bottom: fluid(24px, 42px, 768px, 1920px);
+}
+
+h3,
+.h3 {
+    font-size: fluid(19.5px, 46px, 768px, 1920px);
+}
+
+h4,
+.h4 {
+    font-size: fluid(14px, 30px, 768px, 1920px);
+}
+
+p {
+    font-size: fluid(12.75px, 30px, 768px, 1920px);
+    line-height: 1.3;
+    margin-bottom: fluid(16px, 38px, 768px, 1920px);
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media all and (max-width: 767px) {
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: fluid(10px, 24px, 280px, 767px);
+    }
+    h2,
+    .h2 {
+        font-size: fluid(18px, 52px, 280px, 767px);
+        margin-bottom: fluid(14px, 40px, 280px, 767px);
+    }
+
+    h3,
+    .h3 {
+        font-size: fluid(13px, 36px, 280px, 767px);
+    }
+
+    h4,
+    .h4 {
+        font-size: fluid(8px, 24px, 280px, 767px);
+    }
+
+    p {
+        font-size: fluid(10px, 30px, 280px, 767px);
+        margin-bottom: fluid(10px, 30px, 280px, 767px);
+    }
+}
+
+.input-wrap {
+    margin-bottom: 42px;
+    &:nth-child(even) {
+        padding-left: 21px;
+    }
+    &:nth-child(odd) {
+        padding-right: 21px;
+    }
+}
+
+.input-wrap-full {
+    margin-bottom: 42px;
+    padding: 0;
+    &:nth-child(odd) {
+        padding-right: 0;
+    }
+}
+
+.label {
+    // font-size: fluid(12.75px, 30px, 768px, 1920px);
+    font-size: fluid(9.5px, 24px, 768px, 1920px);
+    line-height: 1.3;
+    margin-bottom: fluid(8px, 22px, 768px, 1920px);
+}
+
+.input {
+    font-size: fluid(12.75px, 30px, 768px, 1920px);
+    padding: 16px;
+}
+
+.input-textarea {
+    height: 200px;
+}
+
+#result {
+    font-size: fluid(12.75px, 30px, 768px, 1920px);
+    margin-bottom: 42px;
+    span {
+        padding: 16px;
+    }
+}
+
+.button {
+    font-size: fluid(16px, 24px, 768px, 1920px);
+    padding-top: fluid(2px, 5px, 280px, 767px);
+    padding-bottom: fluid(2px, 5px, 280px, 767px);
+    padding-left: fluid(10px, 30px, 280px, 767px);
+    padding-right: fluid(10px, 30px, 280px, 767px);
+    @media all and (max-width: 767px) {
+        font-size: fluid(16px, 24px, 280px, 767px);
+    }
+}
+
+@media all and (max-width: 767px) {
+    .lets-talk-text {
+        p {
+            br {
+                display: none;
+            }
+        }
+    }
+
+    .label {
+        font-size: fluid(8px, 22px, 280px, 767px);
+        margin-bottom: fluid(8px, 22px, 280px, 767px);
+    }
+}
+
+.section {
+    .inner {
+        padding-top: fluid(85px, 170px, 768px, 1920px);
+        padding-bottom: fluid(85px, 170px, 768px, 1920px);
+    }
+    @media all and (max-width: 767px) {
+        .inner {
+            padding-top: fluid(58px, 160px, 280px, 767px);
+            padding-bottom: fluid(58px, 160px, 280px, 767px);
+        }
+    }
+}
+
+.inner {
+    padding-top: fluid(10px, 20px, 768px, 1920px);
+    padding-bottom: fluid(10px, 20px, 768px, 1920px);
+    @media all and (max-width: 767px) {
+        padding-top: fluid(10px, 20px, 280px, 767px);
+        padding-bottom: fluid(10px, 20px, 280px, 767px);
+    }
+}
+
+// SCROLL BOTTOM
+.scroll-button {
+    height: fluid(26px, 70px, 768px, 1920px);
+    width: fluid(26px, 70px, 768px, 1920px);
+    bottom: fluid(20px, 50px, 768px, 1920px);
+    &.scroll-up-button {
+        right: fluid(26px, 50px, 768px, 1920px);
+        bottom: fluid(60px, 106px, 768px, 1920px);
+        transform: translateX(300%);
+        transition: transform .5s linear;
+        &.active {
+            transform: translateX(0);
+        }
+        .circle {
+            .arrow {
+                transform: translateY(0.347vw) rotate(135deg);
+            }
+        }
+    }
+    .circle {
+        height: fluid(26px, 70px, 768px, 1920px);
+        width: fluid(26px, 70px, 768px, 1920px);
+        .arrow {
+            height: fluid(10px, 26px, 768px, 1920px);
+            width: fluid(10px, 26px, 768px, 1920px);
+        }
+    }
+    .text {
+        padding-top: 10px;
+    }
+    @media all and (max-width: 767px) {
+        bottom: fluid(20px, 38px, 280px, 767px);
+        height: 30px;
+        width: 30px;
+        &.scroll-up-button {
+            right: fluid(24px, 50px, 280px, 767px);
+            bottom: fluid(60px, 106px, 280px, 767px);
+        }
+        .circle {
+            height: 30px;
+            width: 30px;
+            .arrow {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    }
+}
+
+// HEADER
+#masthead {
+    .inner {
+        padding-left: fluid(30px, 60px, 768px, 1920px);
+        padding-right: fluid(30px, 60px, 768px, 1920px);
+        max-width: 100%;
+    }
+    .logo {
+        font-size: fluid(16px, 23px, 768px, 1920px);
+        margin: 0;
+    }
+    .main-navigation {
+        li {
+            font-size: fluid(15px, 22px, 768px, 1920px);
+        }
+    }
+    @media all and (max-width: 767px) {
+        .inner {
+            padding-left: 0px;
+            padding-right: 0px;
+            max-width: 90%;
+        }
+        .logo {
+            font-size: fluid(14px, 29px, 280px, 767px);
+        }
+        .main-navigation {
+            li {
+                font-size: fluid(12px, 23px, 280px, 767px);
+                &:not(.menu-button) {
+                    display: none;
+                }
+            }
+        }
+    }
+
+}
+
+// HERO
+#hero {
+    .inner {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .h1 {
+        font-size: fluid(64px, 102px, 768px, 1920px);
+        margin-bottom: fluid(24px, 46px, 768px, 1920px);
+        line-height: 1.1;
+    }
+    .hero-text {
+        p {
+            font-size: fluid(12px, 32px, 768px, 1920px);
+        }
+    }
+    @media all and (max-width: 1023px) {
+        .inner {
+            padding-top: fluid(64px, 240px, 280px, 1023px);
+            padding-bottom: fluid(64px, 240px, 280px, 1023px);
+        }
+    }
+    @media all and (max-width: 767px) {
+        .h1 {
+            font-size: fluid(36px, 75px, 280px, 767px);
+            margin-bottom: fluid(16px, 40px, 280px, 767px);
+        }
+        .hero-text {
+            p {
+                font-size: fluid(12px, 24px, 300px, 767px);
+                br {
+                    display: none;
+                }
+            }
+        }
+        // .scroll-down-button {
+        //     display: none;
+        // }
+    }
+}
+
+//  WORK
+#work {
+    .work-text {
+        margin-bottom: fluid(26px, 54px, 768px, 1920px);
+    }
+    .project {
+        a {
+            .arrow {
+                height: fluid(21px, 54px, 768px, 1920px);
+                width: fluid(21px, 54px, 768px, 1920px);
+                &:before {
+                    border-right-width: 2px;
+                    border-top-width: 2px;
+                    height: fluid(7px, 16px, 768px, 1920px);
+                    width: fluid(7px, 16px, 768px, 1920px);
+                }
+                &:after {
+                    height: 2px;
+                    width: fluid(7px, 16px, 768px, 1920px);
+                }
+            }
+        }
+        .project-text {
+            padding: fluid(10px, 20px, 768px, 1920px);
+        }
+        h3,p {
+            margin: 0;
+        }
+        p {
+            font-size: fluid(12px, 24px, 768px, 1920px);
+        }
+        .employer {
+            font-size: fluid(13px, 18px, 768px, 1920px);
+        }
+        .project-skills {
+            li {
+                font-size: fluid(10px, 18px, 768px, 1920px);
+                line-height: 1.3;
+                margin: 0;
+                margin-right: fluid(5px, 10px, 768px, 1920px);
+                text-transform: lowercase;
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    @media all and (max-width: 767px) {
+        .work-text {
+            margin-bottom: fluid(18px, 50px, 280px, 767px);
+        }
+        .project {
+            a {
+                .arrow {
+                    height: fluid(21px, 54px, 280px, 767px);
+                    width: fluid(21px, 54px, 280px, 767px);
+                    &:before {
+                        border-right-width: 2px;
+                        border-top-width: 2px;
+                        height: fluid(7px, 16px, 280px, 767px);
+                        width: fluid(7px, 16px, 280px, 767px);
+                    }
+                    &:after {
+                        height: 2px;
+                        width: fluid(7px, 16px, 280px, 767px);
+                    }
+                }
+            }
+            p {
+                font-size: fluid(16px, 32px, 280px, 767px);
+            }
+            .employer {
+                font-size: fluid(14px, 24px, 280px, 767px);
+            }
+            h3.h4 {
+                font-size: fluid(18px, 36px, 280px, 767px);
+            }
+            .project-text {
+                padding: fluid(8px, 10px, 280px, 767px);
+            }
+            .project-skills {
+                li {
+                    font-size: fluid(10px, 20px, 280px, 767px);
+                    margin-right: fluid(7px, 14px, 280px, 767px);
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.swiper.swiper-horizontal {
+    padding-bottom: fluid(50px, 140px, 768px, 1920px);
+    .swiper-controls {
+        width: fluid(85px, 200px, 768px, 1920px);
+        height: fluid(26px, 70px, 768px, 1920px);
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        height: fluid(26px, 70px, 768px, 1920px);
+        width: fluid(26px, 70px, 768px, 1920px);
+        .swiper-navigation-icon {
+            height: fluid(10px, 24px, 768px, 1920px);
+            width: fluid(10px, 24px, 768px, 1920px);
+        }
+    }
+    .swiper-button-next {
+        .swiper-navigation-icon {
+            margin-right:3px;
+            transform: rotate(-45deg) !important;
+        }
+    }
+    .swiper-button-prev {
+        .swiper-navigation-icon {
+            margin-left: 3px;
+            transform: rotate(45deg) !important;
+        }
+    }
+    @media all and (max-width: 767px) {
+        padding-bottom: fluid(50px, 70px, 280px, 767px);
+        .swiper-controls {
+            height: 30px;
+            width: 100px;
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+            width: 30px;
+            height: 30px;
+            .swiper-navigation-icon {
+                height: 10px;
+                width: 10px;
+            }
+        }
+    }
+}
+
+// EXPERIENCE
+#experience {
+    .intro-text {
+        margin-bottom: fluid(85px, 200px, 768px, 1920px);
+        p {
+            font-size: fluid(19.2px, 48px, 768px, 1920px);
+        }
+
+        @media all and (max-width: 767px) {
+            margin-bottom: fluid(58px, 160px, 280px, 767px);
+            p {
+                font-size: fluid(13px, 36px, 280px, 767px);
+            }
+        }
+    }
+}
+
+.work {
+    margin-bottom: fluid(30px, 88px, 768px, 1920px);
+    padding-bottom: fluid(10px, 52px, 768px, 1920px);
+    // &:last-child {
+    //     padding-bottom: 0;
+    //     margin-bottom: 0;
+    // }
+}
+.date {
+    margin-bottom: fluid(24px, 52px, 768px, 1920px);
+    padding-bottom: fluid(8px, 16px, 768px, 1920px);
+    font-size: fluid(10.75px, 26px, 768px, 1920px);
+}
+.employer {
+    h3 {
+        margin: 0;
+    }
+    p {
+        font-size: fluid(10.75px, 26px, 768px, 1920px);
+        margin: 0;
+    }
+}
+.job-description {
+    .big {
+        margin-bottom: fluid(24px, 52px, 768px, 1920px);
+    }
+    .client-list {
+        margin-bottom: fluid(24px, 52px, 768px, 1920px);
+        p {
+            font-size: fluid(10.75px, 26px, 768px, 1920px);
+        }
+    }
+    .client-links {
+        margin-bottom: 30px;
+        li {
+            font-size: fluid(10.75px, 26px, 768px, 1920px);
+            margin-bottom: fluid(8px, 16px, 768px, 1920px);
+        }
+    }
+}
+@media all and (max-width: 767px) {
+    .work {
+        padding-bottom: fluid(14px, 60px, 280px, 767px);
+        margin-bottom: fluid(21px, 60px, 280px, 767px);
+    }
+    .date {
+        font-size: fluid(10px, 24px, 280px, 767px);
+        margin-bottom: fluid(21px, 60px, 280px, 767px);
+        padding-bottom: fluid(3px, 10px, 280px, 767px);
+    }
+    .employer {
+        margin-bottom: fluid(21px, 60px, 280px, 767px);
+        p {
+            font-size: fluid(10px, 24px, 280px, 767px);
+        }
+    }
+    .job-description {
+        .big {
+            margin-bottom: fluid(21px, 60px, 280px, 767px);
+        }
+        .client-list {
+            margin-bottom: fluid(21px, 60px, 280px, 767px);
+            p {
+                font-size: fluid(10px, 24px, 280px, 767px);
+            }
+        }
+        .client-links {
+            margin-bottom: fluid(18px, 50px, 280px, 767px);
+            li {
+                font-size: fluid(10px, 24px, 280px, 767px);
+                margin-bottom: fluid(3px, 10px, 280px, 767px);
+            }
+        }
+    }
+}
+
+// TESTIMONIALS
+.testimonials-list {
+    .testimonial-item {
+        &:nth-child(odd) {
+            // padding-right: 20px;
+            padding-right: fluid(10.75px, 26px, 768px, 1920px);
+        }
+        &:nth-child(even) {
+            // padding-left: 20px;
+            padding-left: fluid(10.75px, 26px, 768px, 1920px);
+        }
+        p {
+            // font-size: 20px;
+            font-size: fluid(10.75px, 26.6px, 768px, 1920px);
+        }
+        .testimonial-author {
+            p {
+                font-size: fluid(9.5px, 24px, 768px, 1920px);
+            }
+        }
+
+    }
+}
+@media all and (max-width: 767px) {
+    .testimonials-list {
+        .testimonial-item {
+            margin-bottom: fluid(17px, 48px, 280px, 767px);
+            &:nth-child(odd) {
+                padding-right: 0;
+            }
+            &:nth-child(even) {
+                padding-left: 0;
+            }
+            &:last-child {
+                margin: 0;
+            }
+            p {
+                font-size: fluid(8px, 24px, 280px, 767px);
+            }
+            .testimonial-author {
+                p {
+                    font-size: fluid(8px, 22px, 280px, 767px);
+                }
+            }
+        }
+    }
+}
+
+// FOOTER
+#colophon {
+    .inner {
+        padding-left: fluid(30px, 60px, 768px, 1920px);
+        padding-right: fluid(30px, 60px, 768px, 1920px);
+        max-width: 100%;
+    }
+    .menu {
+        li {
+            font-size: 16px;
+            margin-right: 20px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    .location {
+        p {
+            font-size: 18px;
+            font-weight: 800;
+        }
+    }
+    @media all and (max-width: 767px) {
+        .inner {
+            padding-left: 0px;
+            padding-right: 0px;
+            max-width: 90%;
+        }
+        .menu {
+            li {
+                font-size: fluid(8px, 22px, 280px, 767px);
+                margin-right: fluid(7px, 20px, 280px, 767px);
+            }
+        }
+        .location {
+            p {
+                font-size: fluid(8px, 22px, 280px, 767px);
+            }
+        }
+    }
+}

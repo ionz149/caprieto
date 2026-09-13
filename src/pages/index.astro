@@ -1,0 +1,47 @@
+---
+
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Work from '../components/Work.astro';
+import Experience from '../components/Experience.astro';
+import Testimonials from '../components/Testimonials.astro';
+import AFK from '../components/AFK.astro';
+import LetsTalk from '../components/LetsTalk.astro';
+import Footer from '../components/Footer.astro';
+import ScrollArrow from '../components/ui/ScrollArrow.astro';
+import Layout from '../layouts/Layout.astro';
+
+---
+
+<Layout>
+	<Header />
+	<Hero />
+	<main id="main">
+		<Work />
+		<Experience />
+		<Testimonials />
+		<AFK />
+		<LetsTalk />
+		<ScrollArrow direction="up" />
+	</main>
+	<Footer />
+</Layout>
+
+<script>
+    const work = document.querySelector("#work");
+    const scrollUp = document.querySelector(".scroll-up-button");
+
+    if (work && scrollUp) {
+        const updateScrollArrow = () => {
+            const workBottom = work.getBoundingClientRect().bottom;
+
+            scrollUp.classList.toggle("active", workBottom <= 0);
+        };
+
+        window.addEventListener("scroll", updateScrollArrow, {
+            passive: true,
+        });
+
+        updateScrollArrow();
+    }
+</script>

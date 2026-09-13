@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import WorkItem from "./WorkItem.astro";
+
+const works = await getCollection('works');
+works.sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+---
+<section class="section section-yellow panel center" id="work">
+	<div class="inner">
+        <h2>Work</h2>
+		<div class="work-text"><p>Below are some examples of work I’ve done.</p></div>
+
+        <div class="swiper">
+			<div class="swiper-wrapper">
+                {works.map(work => <WorkItem work={work} />)}
+			</div>
+            <div class="swiper-controls">
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+		</div>
+	</div>
+</section>
+
+<script>
+    import 'swiper/css';
+    import Swiper from 'swiper';
+    import { register } from 'swiper/element/bundle';
+    register();
+    // const swiper = new Swiper('.swiper', {});
+
+    window.addEventListener("load", (event) => {
+	    document.fonts.ready.then(() => {
+
+            const swiper = new Swiper('.swiper', {
+                // loop: true,
+                slidesPerView: 1,
+                spaceBetween: 10,
+                pagination: false,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 40,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween:30,
+                    },
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,376 @@
+@import "tailwindcss";
+
+:root {
+    --color-black: #000000;
+    --color-black-rgb: 0, 0, 0;
+    --color-white: #ffffff;
+    --color-gold: #fdce30;
+    --color-gold-rgb: 253, 206, 48;
+}
+
+@theme  {
+    --breakpoint-xs: 28.625rem;
+    --color-gold: #fdce30;
+    --color-gray-med: #404040;
+    --font-body: var(--font-montserrat), "sans-serif";
+}
+
+@layer components {
+    /* GLOBAL */
+    body,
+    button,
+    input,
+    select,
+    optgroup,
+    textarea {
+        @apply font-body text-gray-med text-base leading-[1.3] antialiased;
+    }
+
+    body {
+        @apply bg-black text-white;
+    }
+
+    h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+        @apply font-extrabold;
+	}
+
+    .form {
+        @apply flex flex-row flex-wrap justify-center;
+    }
+
+    .input-wrap {
+        @apply flex-[0_1_50%] max-w-[50%] text-left;
+    }
+
+    .input-wrap-full {
+        @apply max-w-full flex-[0_1_100%];
+    }
+
+    .label {
+        @apply block uppercase text-black text-lg font-bold;
+    }
+
+    .input {
+        @apply block border-2 border-black w-full active:bg-white focus:bg-white focus-visible:outline-black focus-visible:outline-2 focus-visible:outline-dashed outline-offset-2 rounded-xs;
+    }
+
+	.button {
+        @apply bg-black hover:bg-black/0 active:bg-black focus:bg-black border-2 border-black focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2 focus-visible:outline-dashed focus-visible:rounded-xs text-white hover:text-black active:text-white focus:text-white hover:cursor-pointer inline-block font-bold leading-[1.75] decoration-0 transition-colors ease-linear duration-300;
+
+        &.button-gold {
+            @apply bg-gold hover:bg-gold/0 active:bg-gold focus:bg-gold border-gold focus-visible:outline-gold text-black hover:text-white active:text-black focus:text-black;
+        }
+	}
+    #result {
+        @apply text-center;
+        span {
+            @apply block bg-black text-white text-center;
+        }
+    }
+
+	.center {
+		@apply text-center;
+	}
+
+	.inner {
+        @apply max-w-[90%] md:max-w-[80%] my-0 mx-auto;
+	}
+
+	.section-bg {
+        @apply overflow-hidden relative;
+		.bg {
+            @apply opacity-70 absolute top-0 left-0 w-full h-full;
+			picture {
+                @apply block w-full h-full;
+			}
+			img {
+                @apply block w-full h-full object-cover object-center;
+			}
+		}
+		.inner {
+            @apply relative;
+		}
+	}
+
+	.section-yellow {
+        @apply bg-gold;
+		h2, p {
+			@apply text-black;
+		}
+	}
+
+    /* SCROLL BUTTON */
+    .scroll-button {
+        @apply text-black text-center absolute left-[50%] decoration-0 -translate-x-1/2 focus-visible:rounded-full focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-offset-2 focus-visible:outline-gold;
+        &:hover {
+            .circle {
+                @apply bg-black/0;
+                .arrow {
+                    @apply border-gold;
+                }
+            }
+        }
+        &.scroll-up-button {
+            @apply fixed left-auto;
+            mix-blend-mode: difference;
+        }
+        .circle {
+            @apply bg-gold border-gold border-2 rounded-full flex items-center justify-center transition-colors duration-300 ease-linear;
+            /* transition: .3s background linear; */
+            .arrow {
+                border-left: 2px solid var(--color-black);
+                border-bottom: 2px solid var(--color-black);
+                display: block;
+                transform: translateY(-0.139vw) rotate(-45deg);
+                transition: .3s border-color linear;
+            }
+        }
+        .text {
+            @apply text-white block;
+        }
+        @media all and (max-width: 767px) {
+            &.scroll-up-button {
+                mix-blend-mode: normal;
+                .circle {
+                    border: 2px solid var(--color-black);
+                    .arrow {
+                        transform: translateY(2px) rotate(135deg);
+                    }
+                }
+            }
+        }
+    }
+
+    /* HEADER */
+    #masthead {
+        @apply bg-black/80 fixed top-0 left-0 w-full z-666;
+        .inner {
+            @apply flex items-center;
+        }
+        .logo {
+            a {
+                @apply text-white decoration-0 focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-offset-2 focus-visible:outline-gold;
+            }
+        }
+        .main-navigation {
+            @apply flex-1 text-right;
+            li {
+                @apply inline-block font-extrabold ml-5 first:ml-0;
+                &.menu-button {
+                    a {
+                        @apply block bg-gold hover:bg-gold/0 border-2 border-gold text-black hover:text-white px-2.5 py-1.25;
+                        &.active {
+                            @apply bg-gold/0;
+                        }
+                    }
+                }
+                a {
+                    @apply border-b-2 border-black/0 text-gold hover:text-white decoration-0 transition-colors duration-300 ease-linear focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-offset-2 focus-visible:outline-gold;
+                    &.active {
+                        @apply border-gold text-white;
+                    }
+                }
+            }
+        }
+
+    }
+
+    /* HERO */
+    #hero {
+        @apply h-auto lg:h-screen relative;
+        .inner {
+            @apply flex flex-col items-start justify-center h-auto lg:h-full;
+        }
+        /* .scroll {
+            @apply hidden md:flex;
+        } */
+        .hero-text {
+            @apply w-[67%] xs:w-[61%] sm:w-[57%] md:w-auto;
+        }
+    }
+
+    /* WORK */
+    #work {
+        .project {
+            @apply text-left p-2;
+            a {
+                @apply text-black block overflow-hidden relative decoration-0 focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-offset-2 focus-visible:outline-black;
+                .arrow {
+                    @apply bg-black block absolute right-0 top-0 z-3 transition-transform duration-300 content-[''] -translate-y-full;
+                    &:before {
+                        @apply border-gold block absolute top-[50%] left-[50%] content-[''] -translate-1/2;
+                    }
+                    &:after {
+                        @apply bg-gold content-[''] block absolute top-[50%] left-[50%] -rotate-45 -translate-1/2;
+                    }
+                }
+                &:hover {
+                    .arrow {
+                        @apply translate-y-0;
+                    }
+                    .project-image {
+                        img {
+                            @apply scale-105;
+                        }
+                    }
+                    .project-text {
+                        @apply bg-black;
+                        * {
+                            @apply text-gold;
+                        }
+                    }
+                }
+            }
+            .project-image {
+                @apply block w-full h-auto overflow-hidden;
+                img {
+                    @apply object-cover aspect-[1.95:1] w-full h-auto scale-100 transition-transform duration-750;
+                }
+            }
+            .project-text {
+                @apply bg-black/0 block transition-colors duration-300 ease-linear;
+                * {
+                    @apply transition-colors duration-300 ease-linear;
+                }
+            }
+            p {
+                @apply italic;
+            }
+            .project-skills {
+                @apply flex flex-row flex-wrap list-none m-0 p-0;
+            }
+        }
+    }
+
+    .swiper.swiper-horizontal {
+        .swiper-controls {
+            @apply absolute left-[50%] bottom-8 flex justify-between items-center;
+            transform: translateX(-50%);
+        }
+        .swiper-button-next,
+        .swiper-button-prev  {
+            @apply cursor-pointer bg-black border-2 border-black rounded-full transition-colors duration-300 top-0 bottom-auto m-0 flex items-center justify-center focus-visible:rounded-full focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-offset-2 focus-visible:outline-black;
+            .swiper-navigation-icon {
+                @apply block border-2 border-gold transition-colors duration-300;
+                path {
+                    @apply hidden;
+                }
+            }
+            &:hover {
+                @apply bg-gold;
+                .swiper-navigation-icon {
+                    @apply border-black;
+                }
+            }
+        }
+        .swiper-button-next {
+            @apply right-0;
+            .swiper-navigation-icon {
+                @apply border-l-0 border-t-0;
+                transform: rotate(-45deg) !important;
+            }
+        }
+        .swiper-button-prev {
+            @apply left-0;
+            .swiper-navigation-icon {
+                @apply border-r-0 border-t-0;
+                transform: rotate(45deg) !important;
+            }
+        }
+        .swiper-button-disabled {
+            @apply cursor-not-allowed opacity-50 hover:bg-black;
+            &:hover {
+                .swiper-navigation-icon {
+                    @apply border-gold;
+                }
+            }
+        }
+        .swiper-notification {
+            @apply text-black;
+        }
+    }
+
+    /* EXPERIENCE */
+    .work {
+        @apply block md:flex flex-wrap;
+        &.experience-hidden {
+		    @apply hidden;
+	    }
+    }
+    .experience-list.is-expanded .experience-hidden {
+		@apply block md:flex;
+	}
+    .date {
+        @apply flex-[0_1_100%] relative;
+        .date-line {
+            @apply bg-gold h-px md:h-0.5 w-full absolute bottom-0 left-0 origin-[left_center];
+        }
+    }
+    .employer {
+        @apply flex-[0_1_40%] max-w-full md:max-w-[40%] pr-[2%];
+    }
+    .job-description {
+        @apply flex-[0_1_60%] max-w-full md:max-w-[60%];
+        .big {
+            p {
+                @apply text-gold;
+            }
+        }
+        .client-links {
+            @apply list-none m-0 p-0 flex flex-wrap;
+            li {
+                flex: 0 1 50%;
+                line-height: 1.4;
+                a {
+                    @apply text-white decoration-0 border-b md:border-b-2 border-white focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-dashed focus-visible:outline-offset-2 hover:border-gold transition-colors duration-200 ease-linear;
+                }
+            }
+        }
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-list {
+        @apply block md:grid grid-cols-[auto_auto];
+		/* display: grid;
+		grid-template-columns: auto auto; */
+		.testimonial-item {
+            @apply text-left;
+			.testimonial-author {
+				.name {
+                    @apply font-bold;
+				}
+				.role {
+                    @apply block;
+				}
+			}
+
+		}
+	}
+
+    /* FOOTER */
+    #colophon {
+        .inner {
+            @apply flex items-center justify-between;
+        }
+        .menu {
+            @apply list-none m-0 p-0;
+            li {
+                @apply inline-block;
+                a {
+                    @apply text-white decoration-0;
+                    &:focus-visible {
+                        @apply rounded-xs outline-gold outline-2 outline-dashed outline-offset-2;
+                    }
+                }
+            }
+        }
+        .location {
+            @apply text-right;
+        }
+    }
+}

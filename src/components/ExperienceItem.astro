@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+	experience: CollectionEntry<'experiences'>
+	class?: string
+}
+
+const { experience, class: className } = Astro.props
+---
+<article class:list={["work", className]}>
+	<div class="date">
+		<div class="date-text">{experience.data.date}</div>
+		<div class="date-line"></div>
+	</div>
+	<div class="employer">
+		<h3>{experience.data.title}</h3>
+        {experience.data.note && (
+            <p><i>{experience.data.note}</i></p>
+        )}
+        <p>{experience.data.location}</p>
+	</div>
+    <div class="job-description">
+		<div class="big">
+            <p set:html={experience.data.description} />
+		</div>
+        {experience.data.clients && (
+            <div class="client-list">
+                <p set:html={`Clients: ${experience.data.clients}`} />
+            </div>
+        )}
+        {experience.data.links && (
+            <div class="client-links-wrap">
+                <h4 aria-label="Live Sites">Live Sites</h4>
+                <ul class="client-links">
+                    {experience.data.links.map((link) => (
+                        <li>
+                            <a href={link.url} target="_blank" rel="noopener noreferrer">
+                                {link.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )}
+	</div>
+</article>

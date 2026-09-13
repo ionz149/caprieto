@@ -1,0 +1,25 @@
+---
+interface Item {
+  testimonial: string;
+  author: string;
+  role: string;
+}
+
+interface Props {
+  testimonialItems: Item[];
+}
+
+const { testimonialItems } = Astro.props;
+---
+
+<div class="testimonials-list">
+  {testimonialItems.map((testimonialItem, index) => (
+	<div class="testimonial-item">
+	  <p set:html={testimonialItem.testimonial} />
+	  <div class="testimonial-author">
+		  <p><span class="name">{testimonialItem.author}</span>
+		  <span class="role">{testimonialItem.role}</span></p>
+	  </div>
+	</div>
+  ))}
+</div>

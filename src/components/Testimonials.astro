@@ -1,0 +1,21 @@
+---
+import TestimonialList from "./TestimonialList.astro";
+const testimonialContent = [
+  {
+    testimonial: "&ldquo;Chris is a heck of a Drupal themer. He continually outdid himself with the speed in which he could code up a Photoshop mockup into a functional, rock solid, Drupal theme. When we would ask him to find a Drupal solution, he always had one. He is also creative designer in his own right, with a great eye and unique approach. It was a pleasure working with Chris.&rdquo;",
+    author: "Chris Bauer",
+    role: "Front End Engineer"
+  },
+  {
+    testimonial: "&ldquo;Chris put together a website for one of my clients that looked easy to design at first but wasn’t, he really made it all work seamlessly. Chris did a great job in a timely manner, couldn’t ask for anyone better.&rdquo;",
+    author: "Kathy Johnson",
+    role: "Freelance Graphic Designer"
+  }
+];
+---
+<section class="section section-yellow panel center" id="testimonials">
+	<div class="inner">
+        <h2>Testimonials</h2>
+        <TestimonialList testimonialItems={testimonialContent} />
+	</div>
+</section>
