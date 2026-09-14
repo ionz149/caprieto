@@ -9,11 +9,11 @@ works.sort(
 
 ---
 <section class="section section-yellow panel center" id="work">
-	<div class="inner">
-        <h2>Work</h2>
-		<div class="work-text"><p>Below are some examples of work I’ve done.</p></div>
+	<div class="inner reveal">
+        <h2 class="reveal-heading"><span>Work</span></h2>
+		<div class="work-text reveal-content"><p>Below are some examples of work I’ve done.</p></div>
 
-        <div class="swiper">
+        <div class="swiper reveal-content">
 			<div class="swiper-wrapper">
                 {works.map(work => <WorkItem work={work} />)}
 			</div>

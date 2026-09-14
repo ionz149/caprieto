@@ -12,7 +12,7 @@ interface Props {
 const { testimonialItems } = Astro.props;
 ---
 
-<div class="testimonials-list">
+<div class="testimonials-list reveal-content">
   {testimonialItems.map((testimonialItem, index) => (
 	<div class="testimonial-item">
 	  <p set:html={testimonialItem.testimonial} />

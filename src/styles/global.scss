@@ -30,6 +30,63 @@
   );
 }
 
+/* SCROLL REVEALS */
+
+.reveal-heading {
+    overflow: hidden;
+
+    > span {
+        display: block;
+        transform: translateY(105%);
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+}
+
+.reveal-content {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+    &:nth-of-type(2) {
+        transition-delay: .5s;
+    }
+    &:nth-of-type(3) {
+        transition-delay: .9s;
+    }
+}
+
+.reveal.is-visible {
+    .reveal-heading {
+        > span {
+            transform: translateY(0);
+        }
+    }
+
+    .reveal-content {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-heading {
+        overflow: visible;
+
+        > span {
+            transform: none;
+            transition: none;
+        }
+    }
+
+    .reveal-content {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 html {
     scroll-behavior: smooth;
 
@@ -321,6 +378,69 @@ p {
     }
 }
 
+// HERO INTRO
+.hero-intro {
+    .h1 {
+        overflow: hidden;
+        .hero-line {
+            display: block;
+            overflow: hidden;
+
+            > span {
+                display: block;
+                transform: translateY(105%);
+                animation: hero-line-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+
+            &:nth-child(2) > span {
+                animation-delay: 0.1s;
+            }
+
+            &:nth-child(3) > span {
+                animation-delay: 0.2s;
+            }
+        }
+    }
+
+    .hero-text {
+        opacity: 0;
+        transform: translateY(12px);
+        animation: hero-content-in 0.8s ease 0.4s forwards;
+    }
+}
+
+@keyframes hero-line-in {
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes hero-content-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-intro {
+        h1 .hero-line {
+            overflow: visible;
+
+            > span {
+                transform: none;
+                animation: none;
+            }
+        }
+
+        .hero-text {
+            opacity: 1;
+            transform: none;
+            animation: none;
+        }
+    }
+}
+
 //  WORK
 #work {
     .work-text {
@@ -483,6 +603,15 @@ p {
     //     padding-bottom: 0;
     //     margin-bottom: 0;
     // }
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+        opacity 0.8s ease 0.2s,
+        transform 0.8s ease 0.2s;
+    &.is-visible {
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }
 .date {
     margin-bottom: fluid(24px, 52px, 768px, 1920px);

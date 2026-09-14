@@ -7,8 +7,12 @@ import ScrollArrow from '../components/ui/ScrollArrow.astro';
 	<div class="bg">
 		<Image src={heroBg} alt="" layout='full-width' width={800} height={600} loading="eager" fetchpriority={'high'} />
 	</div>
-	<div class="inner">
-		<h2 class="h1">Hi, I am a<br /> Front-End<br /> Web Dev</h2>
+	<div class="inner hero-intro">
+		<h2 class="h1">
+			<span class="hero-line"><span>Hi, I am a</span></span>
+			<span class="hero-line"><span>Front-End</span></span>
+			<span class="hero-line"><span>Web Dev</span></span>
+		</h2>
 		<div class="hero-text"><p>I work with WordPress, Shopify and Webflow<br /> using CSS, HTML, JavaScript, GSAP, and PHP.</p></div>
 	</div>
     <ScrollArrow direction="down" />
