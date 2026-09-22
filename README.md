@@ -10,6 +10,6 @@ Built with Astro, Tailwind CSS, and SCSS.
 - [x] Wrap up transiton from Tailwind font handling to custom mixin
 - [ ] Possible GSAP
 - [ ] Possible JS instead of GSAP
-- [ ] Move to cloudflare
-- [ ] Favicon
+- [x] Move to cloudflare
+- [x] Favicon
 - [x] Gumshoe style functionality in JS

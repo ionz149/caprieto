@@ -44,7 +44,7 @@
     }
 
     .input-wrap {
-        @apply flex-[0_1_50%] max-w-[50%] text-left;
+        @apply flex-[0_1_100%] md:flex-[0_1_50%] max-w-full md:max-w-[50%] text-left;
     }
 
     .input-wrap-full {
@@ -84,12 +84,12 @@
 	.section-bg {
         @apply overflow-hidden relative;
 		.bg {
-            @apply opacity-70 absolute top-0 left-0 w-full h-full;
+            @apply opacity-80 absolute top-0 left-0 w-full h-full;
 			picture {
                 @apply block w-full h-full;
 			}
 			img {
-                @apply block w-full h-full object-cover object-center;
+                @apply block w-full h-full object-cover object-[75%_center];
 			}
 		}
 		.inner {

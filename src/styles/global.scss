@@ -105,12 +105,21 @@ p {
 }
 
 .input-wrap {
-    margin-bottom: 42px;
+    margin-bottom: fluid(24px, 42px, 768px, 1920px);
     &:nth-child(even) {
-        padding-left: 21px;
+        padding-left: fluid(10px, 21px, 768px, 1920px);
     }
     &:nth-child(odd) {
-        padding-right: 21px;
+        padding-right: fluid(10px, 21px, 768px, 1920px);
+    }
+    @media all and (max-width: 767px) {
+        margin-bottom: fluid(14px, 40px, 280px, 767px);
+        &:nth-child(even) {
+            padding-left: 0;
+        }
+        &:nth-child(odd) {
+            padding-right: 0;
+        }
     }
 }
 
