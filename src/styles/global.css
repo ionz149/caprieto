@@ -190,7 +190,7 @@
             @apply hidden md:flex;
         } */
         .hero-text {
-            @apply w-[67%] xs:w-[61%] sm:w-[57%] md:w-auto;
+            @apply w-[58%] xs:w-[52%] sm:w-[50%] md:w-auto;
         }
     }
 

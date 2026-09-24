@@ -313,12 +313,12 @@ p {
     }
     @media all and (max-width: 767px) {
         .h1 {
-            font-size: fluid(36px, 75px, 280px, 767px);
+            font-size: fluid(32px, 70px, 280px, 767px);
             margin-bottom: fluid(16px, 40px, 280px, 767px);
         }
         .hero-text {
             p {
-                font-size: fluid(12px, 24px, 300px, 767px);
+                font-size: fluid(10px, 20px, 280px, 767px);
                 br {
                     display: none;
                 }
@@ -451,7 +451,7 @@ p {
         }
     }
     @media all and (max-width: 767px) {
-        padding-bottom: fluid(50px, 70px, 280px, 767px);
+        padding-bottom: fluid(70px, 90px, 280px, 767px);
         .swiper-controls {
             height: 30px;
             width: 100px;
