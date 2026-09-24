@@ -107,11 +107,13 @@
     /* SCROLL BUTTON */
     .scroll-button {
         @apply text-black text-center absolute left-[50%] decoration-0 -translate-x-1/2 focus-visible:rounded-full focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-offset-2 focus-visible:outline-gold;
-        &:hover {
-            .circle {
-                @apply bg-black/0;
-                .arrow {
-                    @apply border-gold;
+        @media (hover: hover) {
+            &:hover {
+                .circle {
+                    @apply bg-black/0;
+                    .arrow {
+                        @apply border-gold;
+                    }
                 }
             }
         }
