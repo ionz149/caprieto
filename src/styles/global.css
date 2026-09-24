@@ -60,10 +60,10 @@
     }
 
 	.button {
-        @apply bg-black hover:bg-black/0 active:bg-black focus:bg-black border-2 border-black focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2 focus-visible:outline-dashed focus-visible:rounded-xs text-white hover:text-black active:text-white focus:text-white hover:cursor-pointer inline-block font-bold leading-[1.75] decoration-0 transition-colors ease-linear duration-300;
+        @apply bg-black hover:bg-black/0 active:bg-black border-2 border-black focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2 focus-visible:outline-dashed focus-visible:rounded-xs text-white hover:text-black active:text-white hover:cursor-pointer inline-block font-bold leading-[1.75] decoration-0 transition-colors ease-linear duration-300;
 
         &.button-gold {
-            @apply bg-gold hover:bg-gold/0 active:bg-gold focus:bg-gold border-gold focus-visible:outline-gold text-black hover:text-white active:text-black focus:text-black;
+            @apply bg-gold hover:bg-gold/0 active:bg-gold border-gold focus-visible:outline-gold text-black hover:text-white active:text-black;
         }
 	}
     #result {
