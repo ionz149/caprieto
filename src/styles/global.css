@@ -261,12 +261,20 @@
                     @apply hidden;
                 }
             }
-            &:hover {
+            @media (hover: hover) {
+                &:hover {
+                    @apply bg-gold;
+                    .swiper-navigation-icon {
+                        @apply border-black;
+                    }
+                }
+            }
+            /* &:hover {
                 @apply bg-gold;
                 .swiper-navigation-icon {
                     @apply border-black;
                 }
-            }
+            } */
         }
         .swiper-button-next {
             @apply right-0;
@@ -284,9 +292,12 @@
         }
         .swiper-button-disabled {
             @apply cursor-not-allowed opacity-50 hover:bg-black;
-            &:hover {
-                .swiper-navigation-icon {
-                    @apply border-gold;
+            @media (hover: hover) {
+                &:hover {
+                    @apply bg-black;
+                    .swiper-navigation-icon {
+                        @apply border-gold;
+                    }
                 }
             }
         }
