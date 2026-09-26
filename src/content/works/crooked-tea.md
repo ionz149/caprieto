@@ -1,6 +1,6 @@
 ---
 cover: ../../assets/works/2026-04-15-project-crooked-tea.png
-coverAlt: Croked t
+coverAlt: Crooked Tea Lemon Logo
 title: Crooked Tea
 role: Developer
 employer: Victory Creative
