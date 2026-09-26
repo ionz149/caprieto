@@ -243,6 +243,9 @@
             p {
                 @apply italic;
             }
+            .project-skills-wrap {
+                display: block;
+            }
             .project-skills {
                 @apply flex flex-row flex-wrap list-none m-0 p-0;
             }

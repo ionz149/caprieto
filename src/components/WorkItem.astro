@@ -21,13 +21,13 @@ const { work } = Astro.props
             <span class="project-text">
                 <h3 class="h4">{work.data.title}</h3>
                 <p>{work.data.role} {work.data.employer && (<span class="employer">@{work.data.employer}</span>)}</p>
-                <div class="project-skills-wrap">
+                <span class="project-skills-wrap">
                     <ul class="project-skills">
                         {work.data.skills?.map((skill) => (
                             <li>{skill.skill}</li>
                         ))}
                     </ul>
-                </div>
+                </span>
             </span>
         </a>
     </article>
